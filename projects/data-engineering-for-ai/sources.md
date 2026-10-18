@@ -136,6 +136,16 @@ Sources are evaluated based on:
 - **Limitations:** Published in 2022; monitoring tools and practices may have evolved.
 - **Status:** Selected for review
 
+### S013 — Apache Airflow Official Documentation: Core Concepts
+
+- **Provider:** Apache Software Foundation
+- **Type:** Official technical documentation
+- **Link:** https://airflow.apache.org/docs/apache-airflow/stable/core-concepts/index.html
+- **Topics:** DAGs, tasks, dependencies, scheduling, executors, task execution, and workflow architecture.
+- **Relevance:** Provides a primary technical reference for validating Airflow concepts and distinguishing current behavior from older course examples.
+- **Limitations:** Documentation describes the current stable version; implementation details may differ across Airflow releases.
+- **Status:** Selected for review
+
 ## References Used in Research Notes
 
 Use the source IDs (S001–S012) to reference materials in `research-notes.md`.
