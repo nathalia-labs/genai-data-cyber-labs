@@ -271,21 +271,174 @@ No orchestration workflow has been implemented or execution-tested as part of th
 
 ## 7. Data Ingestion and Transformation
 
-**Status: Pending research.**
+### 7.1 Research Overview
 
-This section will be developed after reviewing the relevant sources.
+Data ingestion and transformation are foundational stages of data engineering. They determine how data enters a system, how it is prepared for downstream use, and how its quality and consistency are maintained.
 
-Planned topics include:
+In AI and machine learning workflows, these stages influence the reliability of training datasets, the reproducibility of experiments, and the consistency of data processing between training and inference.
 
-- Batch and streaming ingestion.
-- File-based, API-based, and database-based data sources.
-- Schema handling and data type consistency.
-- Missing values, duplicates, and invalid records.
-- Transformation logic and reproducibility.
-- Data validation and error handling.
-- How ingestion and transformation decisions affect downstream AI and machine learning workflows.
+This section establishes the main concepts and identifies practical techniques for a small, reproducible portfolio experiment.
 
-No specific implementation approach has been selected or validated yet.
+### 7.2 Data Ingestion
+
+**Definition and purpose**
+
+Data ingestion is the process of collecting data from source systems and making it available for subsequent storage and processing. Sources may include files, APIs, relational databases, application logs, and event streams.
+
+An ingestion workflow should make the origin of the data identifiable and account for failures, changes in source structure, and the possibility of repeated execution.
+
+**Batch and streaming ingestion**
+
+- **Batch ingestion:** Data is collected or processed in discrete groups, often according to a schedule. It is suitable when periodic updates meet the requirements of the application.
+- **Streaming ingestion:** Data is handled continuously or in small increments as events become available. It is useful when applications require frequent updates or low-latency processing.
+
+The appropriate approach depends on freshness requirements, source capabilities, processing complexity, operational cost, and system constraints. Streaming is not inherently necessary for every data-intensive or AI application.
+
+**Common ingestion challenges**
+
+- Temporary source unavailability and network failures.
+- API rate limits and authentication errors.
+- Unexpected schema or format changes.
+- Incomplete, duplicated, or malformed records.
+- Large file transfers and resource constraints.
+- Unclear data provenance or insufficient execution logs.
+
+Possible mitigations include retries for transient failures, input validation, explicit error handling, execution logging, and preservation of raw input data when appropriate.
+
+### 7.3 Data Transformation
+
+Data transformation converts source data into a representation that is more suitable for analysis, reporting, or model development.
+
+Common operations include:
+
+- Converting data types and standardizing formats.
+- Handling missing values and duplicate records.
+- Validating fields and business rules.
+- Filtering invalid records and documenting rejected data.
+- Joining datasets and calculating derived fields.
+- Encoding, normalizing, or otherwise preparing model features when required.
+- Converting storage formats, such as CSV to Parquet.
+
+Transformations should be explicit, documented, and testable. Decisions about removing records, imputing missing values, or changing distributions must depend on the dataset and intended use rather than being applied automatically.
+
+**ETL and ELT**
+
+- **ETL (Extract, Transform, Load):** Data is transformed before being loaded into the target system.
+- **ELT (Extract, Load, Transform):** Data is loaded into the target system before transformations are performed there.
+
+These patterns describe different processing arrangements. Their suitability depends on the source systems, target platform, governance requirements, data volume, and available processing capabilities. They are not restricted to a single storage architecture or technology.
+
+### 7.4 Data Quality and Validation
+
+Data quality checks help determine whether a dataset satisfies explicit expectations before it is consumed by downstream processes.
+
+Useful dimensions and examples include:
+
+- **Completeness:** Required fields are present.
+- **Validity:** Values conform to expected types, formats, or ranges.
+- **Consistency:** Related fields and records do not contradict one another.
+- **Uniqueness:** Records expected to be unique do not contain unintended duplicates.
+- **Timeliness:** Data is sufficiently recent for its intended purpose.
+
+Validation can occur at ingestion, after transformation, and before data is released for downstream consumption. Different checks are appropriate at each stage.
+
+For a small project, validation can begin with Python assertions or automated tests. A data-quality framework may be introduced later if declarative expectations, reporting, or integration with larger pipelines becomes necessary.
+
+Invalid records should be handled according to documented rules. Depending on the use case, they may be rejected, quarantined for investigation, corrected, or retained with an explicit quality status.
+
+### 7.5 Reliability and Idempotency
+
+Data pipelines can fail because of network problems, unavailable services, malformed records, or processing errors. Reliability requires making failures visible and defining how the workflow should recover.
+
+Relevant practices include:
+
+- Logging execution outcomes and error details.
+- Retrying transient failures with appropriate limits.
+- Distinguishing recoverable failures from invalid input.
+- Recording the source and processing context of each dataset.
+- Testing failure handling and reprocessing behavior.
+
+**Idempotency** is the property that repeating an operation under defined conditions produces the same intended logical result, rather than introducing unintended side effects.
+
+For example, rerunning a transformation for a specific dataset version should not silently duplicate records. Possible implementation strategies include deterministic outputs, unique keys, controlled upserts, or replacing a clearly defined output partition.
+
+The correct strategy depends on the storage system and pipeline semantics. An append-only operation is not necessarily incorrect, but it must account for duplicate prevention and repeated execution.
+
+### 7.6 Application to AI and Machine Learning
+
+Data ingestion and transformation affect the data used to train, validate, and serve machine learning models.
+
+Potential consequences of poor data preparation include:
+
+- Training on incorrect, incomplete, or duplicated observations.
+- Evaluation results that do not represent expected production conditions.
+- Data leakage between training and evaluation datasets.
+- Inconsistent preprocessing between model development and inference.
+- Reduced performance when production data differs from the training distribution.
+
+Training and inference pipelines should apply compatible feature definitions and preprocessing rules. Shared code, versioned preprocessing artifacts, automated tests, and feature stores can help address these risks. None of these techniques guarantees consistency without appropriate design and validation.
+
+For an initial portfolio experiment, a feature store is not required. A simpler and more transparent demonstration is to define transformations in reusable code and test that the same rules are applied consistently.
+
+### 7.7 Proposed Practical Experiment
+
+The first experiment should demonstrate core data-engineering concepts without requiring a distributed infrastructure or a large collection of tools.
+
+**Proposed workflow**
+
+1. **Ingest:** Obtain a small public dataset and preserve the original input.
+2. **Inspect:** Record its schema, size, missing values, and potential data-quality issues.
+3. **Transform:** Apply explicit cleaning and type-conversion rules.
+4. **Store:** Write the processed dataset in Parquet format.
+5. **Validate:** Check schema, required fields, relevant value ranges, and uniqueness where appropriate.
+6. **Test:** Verify expected transformation behavior and the handling of invalid inputs.
+7. **Reproduce:** Document the environment, execution steps, expected outputs, and behavior when the process is rerun.
+
+The experiment should make the distinction between raw and processed data clear and should avoid silently overwriting source data.
+
+Potential extensions include using DuckDB for SQL-based transformations, Docker for environment reproducibility, an orchestration tool for scheduled execution, or a simple machine learning task to demonstrate downstream consumption.
+
+These extensions should be introduced only when their additional value can be demonstrated.
+
+### 7.8 Evidence and Limitations
+
+The synthesis identifies concepts that require evidence from the source materials or authoritative technical documentation before being treated as verified findings.
+
+| Topic | Research status |
+|---|---|
+| Batch and streaming | Conceptual distinction established; implementation-specific behavior requires further verification. |
+| ETL and ELT | Core definitions established; the choice depends on system constraints. |
+| Data validation | Candidate checks identified; exact rules must be adapted to the dataset. |
+| Idempotency | Core reliability concept established; implementation depends on storage and processing semantics. |
+| AI/ML consistency | Relevant risks identified; specific mitigation techniques require validation against the intended workflow. |
+| Tools and frameworks | Candidate technologies identified; no comparative performance or cost conclusions have been established. |
+
+The NotebookLM synthesis contains useful candidate findings, but its evidence table does not provide a source citation for every individual claim. Those claims should not be described as independently verified until the supporting material has been checked.
+
+In particular, claims about specific tool behavior, production configurations, performance comparisons, and managed-cloud costs remain outside the scope of this initial synthesis.
+
+### 7.9 Open Questions
+
+- Which public dataset offers meaningful but manageable data-quality challenges?
+- Which validation rules are appropriate for the selected dataset?
+- How should rejected records and transformation failures be documented?
+- What output strategy will make repeated execution safe?
+- Which additional tool, if any, would materially improve the experiment?
+- How can the experiment demonstrate reproducibility without unnecessary infrastructure?
+
+### 7.10 Research Status and Next Steps
+
+**Current status:** Initial conceptual synthesis completed; source-level verification and practical implementation remain pending.
+
+Next steps:
+
+1. Map the main claims to the relevant entries in `sources.md`.
+2. Verify important definitions and tool-specific details against current official documentation.
+3. Select a small public dataset and define measurable validation rules.
+4. Implement and test the basic ingestion and transformation workflow.
+5. Document the results, limitations, and any changes made during implementation.
+
+No implementation or execution results are claimed at this stage.
 
 ## 8. Data Storage and Management
 
