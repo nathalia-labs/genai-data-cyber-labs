@@ -1,113 +1,124 @@
 # Research Notes
 
-## Purpose
+## 1. Research Overview
 
-This document records the concepts, comparisons, questions, and conclusions developed throughout the research process.
+This document records the concepts, comparisons, insights, and open questions identified during the study of data engineering applied to AI systems.
 
-## 1. Data Engineering Fundamentals
+The notes are based on the sources cataloged in [`sources.md`](sources.md). Claims and conclusions should be linked to the relevant source IDs whenever possible.
 
-**Research question:** What is data engineering, and what problems does it solve?
+## 2. Research Scope
 
-### Key concepts
+The research focuses on the following topics:
 
-_To be completed after reviewing the selected sources._
+- Data ingestion and transformation
+- Data storage and management
+- Workflow orchestration
+- Data quality, testing, and reliability
+- Experiment management and monitoring
+- Data pipelines supporting machine learning systems
 
-### Practical example
+## 3. Key Concepts
 
-_Describe a real or hypothetical scenario in which data must be collected, transformed, validated, and made available for downstream use._
+This section will document important concepts, their definitions, practical applications, and relevance to data engineering for AI.
 
-### Connections to AI
+### 3.1 Data Ingestion
 
-_Explain how data engineering supports data preparation, model training, inference, or AI applications._
+**Definition:** To be completed after reviewing the selected sources.
 
-### Sources
+**Key points:**
+- To be investigated.
 
-- [S001] — To be reviewed
-- [S002] — To be reviewed
+**Sources:** To be added.
 
-## 2. Data Pipelines: ETL and ELT
+### 3.2 Data Transformation
 
-**Research questions:**
-- What distinguishes ETL from ELT?
-- What factors influence the choice between them?
-- How do these approaches affect data quality and downstream use?
+**Definition:** To be completed after reviewing the selected sources.
 
-### Key concepts
+**Key points:**
+- To be investigated.
 
-_To be completed._
+**Sources:** To be added.
 
-### Comparison
+### 3.3 Data Storage and Management
 
-_Compare the approaches, including their strengths, limitations, and suitable contexts._
+**Definition:** To be completed after reviewing the selected sources.
 
-### Sources
+**Key points:**
+- To be investigated.
 
-_To be added._
+**Sources:** To be added.
 
-## 3. Data Storage and Architecture
+### 3.4 Workflow Orchestration
 
-**Research questions:**
-- What distinguishes a data warehouse, data lake, and lakehouse?
-- Which requirements influence architectural decisions?
+**Definition:** To be completed after reviewing the selected sources.
 
-### Key concepts
+**Key points:**
+- To be investigated.
 
-_To be completed._
+**Sources:** To be added.
 
-### Sources
+### 3.5 Data Quality and Testing
 
-_To be added._
+**Definition:** To be completed after reviewing the selected sources.
 
-## 4. Processing and Orchestration
+**Key points:**
+- To be investigated.
 
-**Research questions:**
-- What is the difference between data processing and workflow orchestration?
-- How do dependencies, failures, retries, and scheduling affect pipeline reliability?
+**Sources:** To be added.
 
-### Key concepts
+## 4. Data Engineering for AI/ML
 
-_To be completed._
+This section will explore how data engineering practices support machine learning workflows, from data preparation to experiment management and monitoring.
 
-### Sources
+**Key questions:**
+- What distinguishes a data pipeline for analytics from one supporting machine learning?
+- How do data quality and data validation affect ML outcomes?
+- How can orchestration and monitoring improve pipeline reliability?
 
-_To be added._
+**Sources:** To be added.
 
-## 5. Data Quality and Reliability
+## 5. Source Comparisons
 
-**Research questions:**
-- How can data quality be measured and validated?
-- What happens when incorrect or incomplete data reaches an AI system?
+Comparisons will be documented after reviewing relevant sources.
 
-### Key concepts
+| Topic | Source 1 | Source 2 | Main findings |
+|---|---|---|---|
+| Workflow orchestration | To be added | To be added | Pending research |
+| Data management | To be added | To be added | Pending research |
+| Testing and reliability | To be added | To be added | Pending research |
+| Experiment management and monitoring | To be added | To be added | Pending research |
 
-_To be completed._
+## 6. Key Insights
 
-### Sources
+Insights will be added as sources are reviewed and their claims are checked.
 
-_To be added._
+- No conclusions recorded yet.
 
-## 6. Data Engineering for AI Systems
+## 7. Open Questions
 
-**Research questions:**
-- How do the requirements of AI data pipelines differ from those of traditional analytics?
-- How do training, inference, and evaluation workflows depend on data infrastructure?
-- What challenges arise from data drift, changing schemas, and data lineage?
+- Which orchestration practices are most useful for reliable data pipelines?
+- How should data quality be validated before data is used to train or evaluate ML models?
+- Which monitoring practices help detect failures in data pipelines and ML systems?
+- Which concepts are tool-independent, and which depend on specific implementations?
 
-### Key concepts
+## 8. Practical Applications
 
-_To be completed._
+Potential practical applications will be documented here. Each application should distinguish between proposed ideas and experiments that have actually been implemented.
 
-### Sources
+- No experiments documented yet.
 
-_To be added._
+## 9. References
 
-## Open Questions
+References use the source IDs defined in [`sources.md`](sources.md).
 
-- Which concepts require further investigation?
-- Where do the sources disagree or describe different approaches?
-- Which claims lack sufficient evidence?
-- Which topics should be explored through practical experiments?
+- Sources reviewed: None recorded yet.
+- Sources pending review: See `sources.md`.
 
-## Conclusions
+## 10. Research Methodology
 
-_Record only conclusions supported by the reviewed sources and practical evidence. Distinguish established findings from hypotheses and personal interpretations._
+- Record concepts in your own words.
+- Link important claims to the corresponding source IDs.
+- Distinguish source statements from personal interpretations.
+- Verify implementation details against official documentation when available.
+- Record disagreements, limitations, and unanswered questions.
+- Update the notes as the research progresses.
